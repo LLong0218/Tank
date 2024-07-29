@@ -1,6 +1,6 @@
 #pragma once
 
-int enemy_tank_move(Tank* enemy_tank, Direction direction, IMAGE* enemy_img) {
+int control_tank_move(Tank* enemy_tank, Direction direction, IMAGE* enemy_img) {
     switch (direction) {
    
     case UP:

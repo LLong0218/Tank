@@ -1,6 +1,6 @@
 #pragma once
 #define enemy_num 10
-#include"enemy_tank_move.hpp"
+#include"control_tank_move.hpp"
 void init_tank_pos() {
     Tank mytank;
     mytank.x = 8;
@@ -87,7 +87,7 @@ void init_tank_pos() {
             
             for (int count = 0; count < enemy_total; count++) {
                 if (enemy_Tank[count].live == 1) {
-                    enemy_tank_move(&enemy_Tank[count], enemy_Tank[count].tank_direction, &enemy_tank_img[enemy_Tank[count].tank_direction]);
+                    control_tank_move(&enemy_Tank[count], enemy_Tank[count].tank_direction, &enemy_tank_img[enemy_Tank[count].tank_direction]);
                 }
      
             }
@@ -109,51 +109,18 @@ void init_tank_pos() {
                     system("pause");
                 case 'W':
                     //向上移动
-                    if (mytank_direction == UP && mytank.y - 1 >= 0 && map[mytank.y - 1][mytank.x] == 0 && map[mytank.y - 1][mytank.x + 1] == 0)
-                    {
-
-                        tank_move(&mytank, UP, &tank_dir_img[mytank_direction], 1);
-                    }
-                    else if (mytank_direction != UP) {
-                        mytank_direction = UP;
-                        tank_move(&mytank, UP, &tank_dir_img[mytank_direction], 0);
-                    }
+                    control_tank_move(&mytank, UP, &tank_dir_img[UP]);
                     
                     break;
                 case 'A':
-                    if (mytank_direction == LEFT && mytank.x - 1 >= 0 && map[mytank.y][mytank.x - 1] == 0 && map[mytank.y + 1][mytank.x - 1] == 0)
-                    {
-
-                        tank_move(&mytank, LEFT, &tank_dir_img[mytank_direction], 1);
-                    }
-                    else if (mytank_direction != LEFT) {
-                        mytank_direction = LEFT;
-                        tank_move(&mytank, LEFT, &tank_dir_img[mytank_direction], 0);
-                    }
+                    control_tank_move(&mytank, LEFT, &tank_dir_img[LEFT]);
                     break;
                 case 'S':
-                    if (mytank_direction == DOWN && mytank.y + 2 <= 25 && map[mytank.y + 2][mytank.x] == 0 && map[mytank.y + 2][mytank.x + 1] == 0)
-                    {
-
-                        tank_move(&mytank, DOWN, &tank_dir_img[mytank_direction], 1);
-
-                    }
-                    else if (mytank_direction != DOWN) {
-                        mytank_direction = DOWN;
-                        tank_move(&mytank, DOWN, &tank_dir_img[mytank_direction], 0);
-                    }
+                    control_tank_move(&mytank, DOWN, &tank_dir_img[DOWN]);
                     break;
                 case 'D':
-                    if (mytank_direction == RIGHT && mytank.x + 2 <= 25 && map[mytank.y][mytank.x + 2] == 0 && map[mytank.y + 1][mytank.x + 2] == 0)
-                    {
-
-                        tank_move(&mytank, RIGHT, &tank_dir_img[mytank_direction], 1);
-
-                    }
-                    else if (mytank_direction != RIGHT) {
-                        mytank_direction = RIGHT;
-                        tank_move(&mytank, RIGHT, &tank_dir_img[mytank_direction], 0);
-                    }
+                    control_tank_move(&mytank, RIGHT, &tank_dir_img[RIGHT]);
+                
                     break;
                 case 'J':
                     //子弹不存在的时候，初始化坐标

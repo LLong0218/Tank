@@ -133,7 +133,7 @@
     <ClInclude Include="bullet_act.hpp" />
     <ClInclude Include="bullet_hit_wall.hpp" />
     <ClInclude Include="change_pos_data.hpp" />
-    <ClInclude Include="enemy_tank_move.hpp" />
+    <ClInclude Include="control_tank_move.hpp" />
     <ClInclude Include="initmap.hpp" />
     <ClInclude Include="init_tank_pos.hpp" />
     <ClInclude Include="menu.hpp" />

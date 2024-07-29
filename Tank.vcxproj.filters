@@ -41,7 +41,7 @@
     <ClInclude Include="init_tank_pos.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="enemy_tank_move.hpp">
+    <ClInclude Include="control_tank_move.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

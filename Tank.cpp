@@ -11,7 +11,7 @@
 #include"bullet_act.hpp"
 #include"bullet_hit_wall.hpp"
 #include"init_tank_pos.hpp"
-#include"enemy_tank_move.hpp"
+#include"control_tank_move.hpp"
 
 //void getimage(IMAGE img, const char[] path, int width, int length) {
 //    loadimage(&img, _T("path"), width, length);

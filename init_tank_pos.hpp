@@ -94,7 +94,7 @@ void init_tank_pos() {
         }
         
         //获取键盘按键
-        while(peekmessage(&key, EX_KEY,true)) {
+        if(peekmessage(&key, EX_KEY,true)) {
             //key = getmessage(EX_KEY);
            
             //自动开启caplock模式
@@ -107,10 +107,10 @@ void init_tank_pos() {
                 switch (key.vkcode) {
                 case 'P':
                     system("pause");
+                    break;
                 case 'W':
                     //向上移动
                     control_tank_move(&mytank, UP, &tank_dir_img[UP]);
-                    
                     break;
                 case 'A':
                     control_tank_move(&mytank, LEFT, &tank_dir_img[LEFT]);
@@ -119,8 +119,7 @@ void init_tank_pos() {
                     control_tank_move(&mytank, DOWN, &tank_dir_img[DOWN]);
                     break;
                 case 'D':
-                    control_tank_move(&mytank, RIGHT, &tank_dir_img[RIGHT]);
-                
+                    control_tank_move(&mytank, RIGHT, &tank_dir_img[RIGHT]);                
                     break;
                 case 'J':
                     //子弹不存在的时候，初始化坐标

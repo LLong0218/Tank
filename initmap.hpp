@@ -5,9 +5,9 @@ void initmap() {
     IMAGE wall_special, wall_normal, home;
 
     //‘ÿ»ÎµÿÕºÕº∆¨
-    loadimage(&wall_special, _T("D:\\Tankfight_source\\resources\\image\\wall1.jpg"), 25, 25);
-    loadimage(&wall_normal, _T("D:\\Tankfight_source\\resources\\image\\wall2.jpg"), 25, 25);
-    loadimage(&home, _T("D:\\Tankfight_source\\resources\\image\\home1.jpg"), 50, 50);
+    loadimage(&wall_special, _T("..\\wall1.jpg"), 25, 25);
+    loadimage(&wall_normal, _T("..\\wall2.jpg"), 25, 25);
+    loadimage(&home, _T("..\\home1.jpg"), 50, 50);
     for (int i = 0; i < 26; i++) {
         for (int j = 0; j < 26; j++) {
             if (map[i][j] == 1) {

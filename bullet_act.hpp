@@ -59,7 +59,7 @@ int bullet_act(bullet* bullet_s,Tank* enemy_tank) {
         change_pos_data<int>(tank->y, tank->x, 0);
         setfillcolor(BLACK);
         solidrectangle(tank->x * 25, tank->y * 25, tank->x * 25 + 50, tank->y * 25 + 50);
-
+        return 0;
     }
 
     if (map[y][x] == 200 || map[bullet_new_y][bullet_new_x] == 200) {

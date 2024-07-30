@@ -148,12 +148,13 @@ void init_tank_pos() {
             
         }
         if (bullet_s.status == 1) {
-            bullet_act(&bullet_s,enemy_Tank);
+            if(bullet_act(&bullet_s,enemy_Tank));
         }
         //敌方子弹自己动
         for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
             if(enemy_bullet[count].status == 1) {
                 bullet_act(&enemy_bullet[count],&mytank);
+                
             }
         }
         Sleep(10);

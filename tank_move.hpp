@@ -113,10 +113,11 @@ int tank_move(Tank* tank_s, Direction direction, IMAGE* img, int step) {
         else {
             return 0;
         }
+        change_pos_data(tank_s->y, tank_s->x, 0);
 
     }
 
-    change_pos_data(tank_s->y, tank_s->x, 0);
+    
 
 
     setfillcolor(BLACK);

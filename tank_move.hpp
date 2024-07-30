@@ -25,10 +25,11 @@ public:
     int x;
     int y;
     Direction tank_direction;
+
     int live = 1;
     int tank_current_num = 3;
 
-    static void bullet_fire_init(Tank* tank, bullet* bullet) {
+    static bullet bullet_fire_init(Tank* tank, bullet* bullet) {
         if (bullet->status == 0) {
             if (tank->tank_direction == UP) {
                 bullet->x = tank->x * 25 + 23;
@@ -49,7 +50,7 @@ public:
             //调整方向
             bullet->bullet_direction = tank->tank_direction;
             bullet->status = 1;
-
+            return *bullet;
         }
     }
 

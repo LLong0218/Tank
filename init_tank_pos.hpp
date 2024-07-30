@@ -2,9 +2,6 @@
 #define enemy_num 10
 #include"control_tank_move.hpp"
 
-//int enemy_Tank.current_tank_num = 3;
-
-
 void init_tank_pos() {
     Tank mytank;
     mytank.x = 8;
@@ -42,7 +39,7 @@ void init_tank_pos() {
     loadimage(&enemy_tank_img[LEFT], _T("..\\it1_left.jpg"), 50, 50);
     loadimage(&enemy_tank_img[RIGHT], _T("..\\it1_right.jpg"), 50, 50);
 
-    //我方坦克图像放置
+    //敌方坦克初始化
     for (int i = 0;i<enemy_num; i++) {
         int res = i % 3;
         switch (res) {
@@ -98,7 +95,7 @@ void init_tank_pos() {
                     Direction d = enemy_Tank[count].enemytank_auto_move(&enemy_Tank[count], mytank.x, mytank.y);
                     control_tank_move(&enemy_Tank[count], d, &enemy_tank_img[d]);
                 }
-
+                Tank::bullet_fire_init(&enemy_Tank[count], &enemy_bullet[count]);
             }
             
         }
@@ -113,11 +110,18 @@ void init_tank_pos() {
             }
         }
 
-        else if (current_time % 100 == 0) {
-            for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
-
-            }
-        }
+        //if (current_time % 100 == 0) {
+        //    /*for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
+        //        enemy_bullet[count]=Tank::bullet_fire_init(&enemy_Tank[count], &enemy_bullet[count]);                
+        //    }*/
+        //    for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
+        //        if(enemy_bullet[count].status == 1) {
+        //            bullet_act(&enemy_bullet[count]);
+        //        }
+        //    }
+        //    
+        //    
+        //}
         
         //获取键盘按键
         if(peekmessage(&key, EX_KEY,true)) {
@@ -148,29 +152,6 @@ void init_tank_pos() {
                     control_tank_move(&mytank, RIGHT, &tank_dir_img[RIGHT]);                
                     break;
                 case 'J':
-                    //子弹不存在的时候，初始化坐标
-                    //if (bullet_s.status == 0) {
-                    //    if (mytank_direction == UP) {
-                    //        bullet_s.x = mytank.x * 25 + 23;
-                    //        bullet_s.y = mytank.y * 25 - 3;
-                    //    }
-                    //    else if (mytank_direction == LEFT) {
-                    //        bullet_s.x = mytank.x * 25 - 3;
-                    //        bullet_s.y = mytank.y * 25 + 23;
-                    //    }
-                    //    else if (mytank_direction == DOWN) {
-                    //        bullet_s.x = mytank.x * 25 + 23;
-                    //        bullet_s.y = mytank.y * 25 + 56;
-                    //    }
-                    //    else if (mytank_direction == RIGHT) {
-                    //        bullet_s.x = mytank.x * 25 + 56;
-                    //        bullet_s.y = mytank.y * 25 + 23;
-                    //    }
-                    //    //调整方向
-                    //    bullet_s.bullet_direction = mytank_direction;
-                    //    bullet_s.status = 1;
-
-                    //}
                     Tank::bullet_fire_init(&mytank, &bullet_s);
                     break;
                 }
@@ -181,6 +162,11 @@ void init_tank_pos() {
         }
         if (bullet_s.status == 1) {
             bullet_act(&bullet_s);
+        }
+        for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
+            if(enemy_bullet[count].status == 1) {
+                bullet_act(&enemy_bullet[count]);
+            }
         }
         Sleep(10);
         current_time++;

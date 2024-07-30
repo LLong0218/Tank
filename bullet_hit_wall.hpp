@@ -9,4 +9,5 @@ void bullet_hit_wall(int x, int y, bullet* bullet) {
     else if (map[y][x] == 2) {
         bullet->status = 0;
     }
+
 }

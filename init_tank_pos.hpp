@@ -15,17 +15,6 @@ void init_tank_pos() {
     bullet enemy_bullet[enemy_num];
     Tank enemy_Tank[enemy_num];
 
-    /*Tank enemy_tank1, enemy_tank2, enemy_tank3;
-    enemy_tank1.x = 0;
-    enemy_tank1.y = 11;
-    enemy_tank2.x = 12;
-    enemy_tank2.y = 0;
-    enemy_tank3.x = 24;
-    enemy_tank3.y = 11;*/
-    /*change_pos_data<int>(enemy_tank1.y, enemy_tank1.x, 200);
-    change_pos_data<int>(enemy_tank2.y, enemy_tank2.x, 200);
-    change_pos_data<int>(enemy_tank3.y, enemy_tank3.x, 200);*/
-
     //获取我方坦克图片
     IMAGE tank_dir_img[4];
     loadimage(&tank_dir_img[UP], _T("..\\tank_up.jpg"), 50, 50);
@@ -60,7 +49,7 @@ void init_tank_pos() {
             break;
         
             enemy_Tank[i].live = 1;
-            change_pos_data<int>(enemy_Tank[i].y, enemy_Tank[i].x, 200);
+            //change_pos_data<int>(enemy_Tank[i].y, enemy_Tank[i].x, 100+i);
             enemy_bullet[i].status = 0;
         }
     }
@@ -68,9 +57,15 @@ void init_tank_pos() {
     /*Direction etank1 = RIGHT;
     Direction etank2 = DOWN;
     Direction etank3 = LEFT;*/
-    putimage(enemy_Tank[0].x * 25, enemy_Tank[0].y * 25, &enemy_tank_img[enemy_Tank[0].tank_direction]);
-    putimage(enemy_Tank[1].x * 25, enemy_Tank[1].y * 25, &enemy_tank_img[enemy_Tank[1].tank_direction]);
-    putimage(enemy_Tank[2].x * 25, enemy_Tank[2].y * 25, &enemy_tank_img[enemy_Tank[2].tank_direction]);
+    tank_move(&enemy_Tank[0],RIGHT,&enemy_tank_img[enemy_Tank[0].tank_direction],0);
+    //putimage(enemy_Tank[0].x * 25, enemy_Tank[0].y * 25, &enemy_tank_img[enemy_Tank[0].tank_direction]);
+    change_pos_data<int>(enemy_Tank[0].y, enemy_Tank[0].x, 100);
+    tank_move(&enemy_Tank[1], DOWN, &enemy_tank_img[enemy_Tank[1].tank_direction], 0);
+    //putimage(enemy_Tank[1].x * 25, enemy_Tank[1].y * 25, &enemy_tank_img[enemy_Tank[1].tank_direction]);
+    change_pos_data<int>(enemy_Tank[1].y, enemy_Tank[1].x, 101);
+    tank_move(&enemy_Tank[2], LEFT, &enemy_tank_img[enemy_Tank[2].tank_direction], 0);
+    //putimage(enemy_Tank[2].x * 25, enemy_Tank[2].y * 25, &enemy_tank_img[enemy_Tank[2].tank_direction]);
+    change_pos_data<int>(enemy_Tank[2].y, enemy_Tank[2].x, 102);
 
     //坦克控制接管
     ExMessage key;
@@ -85,8 +80,12 @@ void init_tank_pos() {
     putimage((mytank.x) * 25, (mytank.y) * 25, &tank_dir_img[mytank_direction]);
 
     while (1) {
+        //每两秒转变一次攻击目标
         if (current_time % 200 == 0) {
             for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
+                //消失坦克不再处理
+                if (enemy_Tank[count].live == 0) continue;
+                //偶数攻击老巢
                 if (current_time % 2 == 0) {
                     Direction d = enemy_Tank[count].enemytank_auto_move(&enemy_Tank[count], 12, 24);
                     control_tank_move(&enemy_Tank[count], d, &enemy_tank_img[d]);
@@ -95,11 +94,12 @@ void init_tank_pos() {
                     Direction d = enemy_Tank[count].enemytank_auto_move(&enemy_Tank[count], mytank.x, mytank.y);
                     control_tank_move(&enemy_Tank[count], d, &enemy_tank_img[d]);
                 }
+                //初始化攻击子弹
                 Tank::bullet_fire_init(&enemy_Tank[count], &enemy_bullet[count]);
             }
             
         }
-
+        //每0.5s走一次
         else if (current_time % 50 == 0) {
             
             for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
@@ -109,19 +109,6 @@ void init_tank_pos() {
      
             }
         }
-
-        //if (current_time % 100 == 0) {
-        //    /*for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
-        //        enemy_bullet[count]=Tank::bullet_fire_init(&enemy_Tank[count], &enemy_bullet[count]);                
-        //    }*/
-        //    for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
-        //        if(enemy_bullet[count].status == 1) {
-        //            bullet_act(&enemy_bullet[count]);
-        //        }
-        //    }
-        //    
-        //    
-        //}
         
         //获取键盘按键
         if(peekmessage(&key, EX_KEY,true)) {
@@ -161,11 +148,12 @@ void init_tank_pos() {
             
         }
         if (bullet_s.status == 1) {
-            bullet_act(&bullet_s);
+            bullet_act(&bullet_s,enemy_Tank);
         }
+        //敌方子弹自己动
         for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
             if(enemy_bullet[count].status == 1) {
-                bullet_act(&enemy_bullet[count]);
+                bullet_act(&enemy_bullet[count],&mytank);
             }
         }
         Sleep(10);

@@ -29,7 +29,7 @@ public:
     int live = 1;
     int tank_current_num = 3;
 
-    static bullet bullet_fire_init(Tank* tank, bullet* bullet) {
+    static void bullet_fire_init(Tank* tank, bullet* bullet) {
         if (bullet->status == 0) {
             if (tank->tank_direction == UP) {
                 bullet->x = tank->x * 25 + 23;
@@ -50,7 +50,7 @@ public:
             //调整方向
             bullet->bullet_direction = tank->tank_direction;
             bullet->status = 1;
-            return *bullet;
+            //return *bullet;
         }
     }
 
@@ -96,7 +96,7 @@ public:
 int tank_move(Tank* tank_s, Direction direction, IMAGE* img, int step) {
     int new_x = tank_s->x;
     int new_y = tank_s->y;
-
+    int pos_data = map[tank_s->y][tank_s->x];
     if (step == 1) {
         if (direction == UP) {
             new_y -= 1;
@@ -124,7 +124,7 @@ int tank_move(Tank* tank_s, Direction direction, IMAGE* img, int step) {
 
 
     if (step == 1) {
-        change_pos_data(new_y, new_x, 200);
+        change_pos_data(new_y, new_x, pos_data);
         tank_s->x = new_x;
         tank_s->y = new_y;
 

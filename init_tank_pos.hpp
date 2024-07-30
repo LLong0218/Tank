@@ -1,6 +1,10 @@
 #pragma once
 #define enemy_num 10
 #include"control_tank_move.hpp"
+
+//int enemy_Tank.current_tank_num = 3;
+
+
 void init_tank_pos() {
     Tank mytank;
     mytank.x = 8;
@@ -74,22 +78,44 @@ void init_tank_pos() {
     //坦克控制接管
     ExMessage key;
     int current_time = 0;
-    int enemy_total = 3;
+ 
 
     mytank.tank_direction = UP;
     Direction& mytank_direction = mytank.tank_direction;
+    
+    srand(time(NULL));
 
     putimage((mytank.x) * 25, (mytank.y) * 25, &tank_dir_img[mytank_direction]);
 
     while (1) {
+        if (current_time % 200 == 0) {
+            for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
+                if (current_time % 2 == 0) {
+                    Direction d = enemy_Tank[count].enemytank_auto_move(&enemy_Tank[count], 12, 24);
+                    control_tank_move(&enemy_Tank[count], d, &enemy_tank_img[d]);
+                }
+                else {
+                    Direction d = enemy_Tank[count].enemytank_auto_move(&enemy_Tank[count], mytank.x, mytank.y);
+                    control_tank_move(&enemy_Tank[count], d, &enemy_tank_img[d]);
+                }
 
-        if (current_time % 50 == 0) {
+            }
             
-            for (int count = 0; count < enemy_total; count++) {
+        }
+
+        else if (current_time % 50 == 0) {
+            
+            for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
                 if (enemy_Tank[count].live == 1) {
                     control_tank_move(&enemy_Tank[count], enemy_Tank[count].tank_direction, &enemy_tank_img[enemy_Tank[count].tank_direction]);
                 }
      
+            }
+        }
+
+        else if (current_time % 100 == 0) {
+            for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
+
             }
         }
         
@@ -123,28 +149,29 @@ void init_tank_pos() {
                     break;
                 case 'J':
                     //子弹不存在的时候，初始化坐标
-                    if (bullet_s.status == 0) {
-                        if (mytank_direction == UP) {
-                            bullet_s.x = mytank.x * 25 + 23;
-                            bullet_s.y = mytank.y * 25 - 3;
-                        }
-                        else if (mytank_direction == LEFT) {
-                            bullet_s.x = mytank.x * 25 - 3;
-                            bullet_s.y = mytank.y * 25 + 23;
-                        }
-                        else if (mytank_direction == DOWN) {
-                            bullet_s.x = mytank.x * 25 + 23;
-                            bullet_s.y = mytank.y * 25 + 56;
-                        }
-                        else if (mytank_direction == RIGHT) {
-                            bullet_s.x = mytank.x * 25 + 56;
-                            bullet_s.y = mytank.y * 25 + 23;
-                        }
-                        //调整方向
-                        bullet_s.bullet_direction = mytank_direction;
-                        bullet_s.status = 1;
+                    //if (bullet_s.status == 0) {
+                    //    if (mytank_direction == UP) {
+                    //        bullet_s.x = mytank.x * 25 + 23;
+                    //        bullet_s.y = mytank.y * 25 - 3;
+                    //    }
+                    //    else if (mytank_direction == LEFT) {
+                    //        bullet_s.x = mytank.x * 25 - 3;
+                    //        bullet_s.y = mytank.y * 25 + 23;
+                    //    }
+                    //    else if (mytank_direction == DOWN) {
+                    //        bullet_s.x = mytank.x * 25 + 23;
+                    //        bullet_s.y = mytank.y * 25 + 56;
+                    //    }
+                    //    else if (mytank_direction == RIGHT) {
+                    //        bullet_s.x = mytank.x * 25 + 56;
+                    //        bullet_s.y = mytank.y * 25 + 23;
+                    //    }
+                    //    //调整方向
+                    //    bullet_s.bullet_direction = mytank_direction;
+                    //    bullet_s.status = 1;
 
-                    }
+                    //}
+                    Tank::bullet_fire_init(&mytank, &bullet_s);
                     break;
                 }
 

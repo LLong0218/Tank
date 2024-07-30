@@ -4,6 +4,8 @@
 #include <iostream>
 #include<graphics.h>
 #include<conio.h>
+#include<Windows.h>
+#include<time.h>
 #include"menu.hpp"
 #include"change_pos_data.hpp"
 #include"initmap.hpp"

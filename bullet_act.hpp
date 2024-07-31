@@ -50,6 +50,7 @@ int bullet_act(bullet* bullet_s,Tank* enemy_tank,Tank* friend_tank) {
 
     if (map[friend_tank->y][friend_tank->x] >= 100 && map[friend_tank->y][friend_tank->x] <= 109) {
         if (map[y][x] >= 100 && map[y][x] <= 109 || map[bullet_new_y][bullet_new_x] >= 100 && map[bullet_new_y][bullet_new_x] <= 109) {
+            bullet_s->status = 0;
             return 0;
         }
     }
@@ -74,6 +75,7 @@ int bullet_act(bullet* bullet_s,Tank* enemy_tank,Tank* friend_tank) {
     
     if (map[friend_tank->y][friend_tank->x] == 200) {
         if (map[y][x] == 200 || map[bullet_new_y][bullet_new_x] == 200) {
+            bullet_s->status = 0;
             return 0;
         }
     }
@@ -92,5 +94,6 @@ int bullet_act(bullet* bullet_s,Tank* enemy_tank,Tank* friend_tank) {
         //putimage(bullet_s->x,bullet_s->y, &bullet_img);
         setfillcolor(WHITE);
         solidrectangle(bullet_s->x, bullet_s->y, bullet_s->x + 3, bullet_s->y + 3);
+        return 0;
     }
 }

@@ -23,16 +23,16 @@ int init_tank_pos() {
 
     //获取我方坦克图片
     IMAGE tank_dir_img[4];
-    loadimage(&tank_dir_img[UP], _T("..\\tank_up.jpg"), 50, 50);
-    loadimage(&tank_dir_img[DOWN], _T("..\\tank_down.jpg"), 50, 50);
-    loadimage(&tank_dir_img[LEFT], _T("..\\tank_left.jpg"), 50, 50);
-    loadimage(&tank_dir_img[RIGHT], _T("..\\tank_right.jpg"), 50, 50);
+    loadimage(&tank_dir_img[UP], _T("image\\tank_up.jpg"), 50, 50);
+    loadimage(&tank_dir_img[DOWN], _T("image\\tank_down.jpg"), 50, 50);
+    loadimage(&tank_dir_img[LEFT], _T("image\\tank_left.jpg"), 50, 50);
+    loadimage(&tank_dir_img[RIGHT], _T("image\\tank_right.jpg"), 50, 50);
     //获取敌方坦克图片
     IMAGE enemy_tank_img[4];
-    loadimage(&enemy_tank_img[UP], _T("..\\it1_up.jpg"), 50, 50);
-    loadimage(&enemy_tank_img[DOWN], _T("..\\it1_down.jpg"), 50, 50);
-    loadimage(&enemy_tank_img[LEFT], _T("..\\it1_left.jpg"), 50, 50);
-    loadimage(&enemy_tank_img[RIGHT], _T("..\\it1_right.jpg"), 50, 50);
+    loadimage(&enemy_tank_img[UP], _T("image\\it1_up.jpg"), 50, 50);
+    loadimage(&enemy_tank_img[DOWN], _T("image\\it1_down.jpg"), 50, 50);
+    loadimage(&enemy_tank_img[LEFT], _T("image\\it1_left.jpg"), 50, 50);
+    loadimage(&enemy_tank_img[RIGHT], _T("image\\it1_right.jpg"), 50, 50);
 
     //敌方坦克初始化
     for (int i = 0;i<enemy_num; i++) {

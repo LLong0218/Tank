@@ -7,7 +7,7 @@ void menu() {
 
     IMAGE logo_img;
     //getimage(&logo_img, _T("D:\\Tankfight_source\\resources\\image\\logo.bmp"), 433, 147);
-    loadimage(&logo_img, _T("..\\logo.bmp"), 433, 147);
+    loadimage(&logo_img, _T("image\\logo.bmp"), 433, 147);
     putimage(110, 20, &logo_img);
 
     //导航按钮实现
@@ -24,7 +24,7 @@ void menu() {
 
     //玩法介绍图片生成
     IMAGE illustrate_img;
-    loadimage(&illustrate_img, _T("..\\illustrate.jpg"), 300, 300);
+    loadimage(&illustrate_img, _T("image\\illustrate.jpg"), 300, 300);
 
     //设置跳出循环条件
     //int finished = 1;

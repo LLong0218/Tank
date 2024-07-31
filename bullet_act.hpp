@@ -1,7 +1,7 @@
 #pragma once
 #include"bullet_hit_wall.hpp"
 //此处的enemy_tank是相对来说的，对敌方来说我方是敌对，需要做碰撞优化
-int bullet_act(bullet* bullet_s,Tank* enemy_tank) {
+int bullet_act(bullet* bullet_s,Tank* enemy_tank,Tank* friend_tank) {
     int x, y, bullet_new_x, bullet_new_y;
     
     x = bullet_s->x / 25;
@@ -47,26 +47,44 @@ int bullet_act(bullet* bullet_s,Tank* enemy_tank) {
     bullet_hit_wall(x, y, bullet_s);
     bullet_hit_wall(bullet_new_x, bullet_new_y, bullet_s);
 
-    if (map[y][x] >= 100 && map[y][x] <= 109 || map[bullet_new_y][bullet_new_x] >= 100 && map[bullet_new_y][bullet_new_x]<=109) {
-        Tank* tank = NULL;
-        bullet_s->status = 0;
-        if (map[y][x] >= 100 && map[y][x] <= 109) {
-            tank = enemy_tank + (map[y][x] - 100);
-        }else tank = enemy_tank + (map[bullet_new_y][bullet_new_x] - 100);
 
-        tank->live = 0;
-        
-        change_pos_data<int>(tank->y, tank->x, 0);
-        setfillcolor(BLACK);
-        solidrectangle(tank->x * 25, tank->y * 25, tank->x * 25 + 50, tank->y * 25 + 50);
-        return 0;
+    if (map[friend_tank->y][friend_tank->x] >= 100 && map[friend_tank->y][friend_tank->x] <= 109) {
+        if (map[y][x] >= 100 && map[y][x] <= 109 || map[bullet_new_y][bullet_new_x] >= 100 && map[bullet_new_y][bullet_new_x] <= 109) {
+            return 0;
+        }
     }
 
-    if (map[y][x] == 200 || map[bullet_new_y][bullet_new_x] == 200) {
-        bullet_s->status = 0;
-        enemy_tank->live = 0;
-        return 1;
+    if(!(map[friend_tank->y][friend_tank->x]>=100&&map[friend_tank->y][friend_tank->x]<=109)){
+        if (map[y][x] >= 100 && map[y][x] <= 109 || map[bullet_new_y][bullet_new_x] >= 100 && map[bullet_new_y][bullet_new_x] <= 109) {
+            Tank* tank = NULL;
+            bullet_s->status = 0;
+            if (map[y][x] >= 100 && map[y][x] <= 109) {
+                tank = enemy_tank + (map[y][x] - 100);
+            }
+            else tank = enemy_tank + (map[bullet_new_y][bullet_new_x] - 100);
+
+            tank->live = 0;
+
+            change_pos_data<int>(tank->y, tank->x, 0);
+            setfillcolor(BLACK);
+            solidrectangle(tank->x * 25, tank->y * 25, tank->x * 25 + 50, tank->y * 25 + 50);
+            return 0;
+        }
     }
+    
+    if (map[friend_tank->y][friend_tank->x] == 200) {
+        if (map[y][x] == 200 || map[bullet_new_y][bullet_new_x] == 200) {
+            return 0;
+        }
+    }
+    if (!(map[friend_tank->y][friend_tank->x] == 200)) {
+        if (map[y][x] == 200 || map[bullet_new_y][bullet_new_x] == 200) {
+            bullet_s->status = 0;
+            enemy_tank->live = 0;
+            return 1;
+        }
+    }
+    
 
     //IMAGE bullet_img;
     if (bullet_s->status == 1) {

@@ -74,12 +74,19 @@ void init_tank_pos() {
 
     mytank.tank_direction = UP;
     Direction& mytank_direction = mytank.tank_direction;
-    
+    int& enemy_total = enemy_Tank->tank_current_num;
     srand(time(NULL));
 
     putimage((mytank.x) * 25, (mytank.y) * 25, &tank_dir_img[mytank_direction]);
 
     while (1) {
+        if (current_time>0&&current_time % 1000 == 0&&enemy_Tank->tank_current_num < enemy_num) {
+            if (map[enemy_Tank[enemy_total].y][enemy_Tank[enemy_total].x] >= 100 && map[enemy_Tank[enemy_total].y][enemy_Tank[enemy_total].x] <= 109) {
+                current_time++;
+            }
+            change_pos_data<int>(enemy_Tank[enemy_total].y, enemy_Tank[enemy_total].x, 100 + enemy_total);
+            enemy_Tank->tank_current_num ++;
+        }
         //每两秒转变一次攻击目标
         if (current_time % 200 == 0) {
             for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
@@ -148,12 +155,12 @@ void init_tank_pos() {
             
         }
         if (bullet_s.status == 1) {
-            if(bullet_act(&bullet_s,enemy_Tank));
+            if(bullet_act(&bullet_s,enemy_Tank,&mytank));
         }
         //敌方子弹自己动
         for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
             if(enemy_bullet[count].status == 1) {
-                bullet_act(&enemy_bullet[count],&mytank);
+                bullet_act(&enemy_bullet[count],&mytank,enemy_Tank);
                 
             }
         }

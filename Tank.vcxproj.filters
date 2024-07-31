@@ -44,5 +44,8 @@
     <ClInclude Include="control_tank_move.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="result_show.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,12 @@
 #pragma once
 #define enemy_num 10
 #include"control_tank_move.hpp"
+#define SUCCESS 0
+#define FAILURE 1
 
-void init_tank_pos() {
+
+
+int init_tank_pos() {
     Tank mytank;
     mytank.x = 8;
     mytank.y = 24;
@@ -14,6 +18,8 @@ void init_tank_pos() {
 
     bullet enemy_bullet[enemy_num];
     Tank enemy_Tank[enemy_num];
+
+    int is_win = 0;
 
     //获取我方坦克图片
     IMAGE tank_dir_img[4];
@@ -155,15 +161,25 @@ void init_tank_pos() {
             
         }
         if (bullet_s.status == 1) {
-            if(bullet_act(&bullet_s,enemy_Tank,&mytank));
+            if(bullet_act(&bullet_s,enemy_Tank,&mytank)) return FAILURE;
         }
         //敌方子弹自己动
         for (int count = 0; count < enemy_Tank->tank_current_num; count++) {
             if(enemy_bullet[count].status == 1) {
-                bullet_act(&enemy_bullet[count],&mytank,enemy_Tank);
-                
+                if(bullet_act(&enemy_bullet[count],&mytank,enemy_Tank)) return FAILURE;                
             }
         }
+        for (int count = 0; count < enemy_num; count++) {
+            if (enemy_Tank[count].live == 0) {
+                is_win++;
+            }
+            if (is_win == 10) {
+                return SUCCESS;
+            }
+            else is_win = 0;
+        }
+
+        
         Sleep(10);
         current_time++;
             

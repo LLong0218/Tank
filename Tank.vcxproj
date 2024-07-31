@@ -137,6 +137,7 @@
     <ClInclude Include="initmap.hpp" />
     <ClInclude Include="init_tank_pos.hpp" />
     <ClInclude Include="menu.hpp" />
+    <ClInclude Include="result_show.hpp" />
     <ClInclude Include="tank_move.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -6,6 +6,7 @@
 #include<conio.h>
 #include<Windows.h>
 #include<time.h>
+#include<winerror.h>
 #include"menu.hpp"
 #include"change_pos_data.hpp"
 #include"initmap.hpp"
@@ -14,6 +15,7 @@
 #include"bullet_hit_wall.hpp"
 #include"init_tank_pos.hpp"
 #include"control_tank_move.hpp"
+#include"result_show.hpp"
 
 //void getimage(IMAGE img, const char[] path, int width, int length) {
 //    loadimage(&img, _T("path"), width, length);
@@ -23,6 +25,7 @@
 
 int main()
 {
+    int res ;
     //初始化绘图窗口
     initgraph(650,650);
     
@@ -30,7 +33,10 @@ int main()
 
     initmap();
 
-    init_tank_pos();
+    res = init_tank_pos();
+
+    result_show(res);
+
  
     system("pause");
     

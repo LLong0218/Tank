@@ -96,4 +96,5 @@ int bullet_act(bullet* bullet_s,Tank* enemy_tank,Tank* friend_tank) {
         solidrectangle(bullet_s->x, bullet_s->y, bullet_s->x + 3, bullet_s->y + 3);
         return 0;
     }
+    return 0;
 }

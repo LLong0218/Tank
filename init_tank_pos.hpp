@@ -19,7 +19,7 @@ int init_tank_pos() {
     bullet enemy_bullet[enemy_num];
     Tank enemy_Tank[enemy_num];
 
-    int is_win = 0;
+    
 
     //获取我方坦克图片
     IMAGE tank_dir_img[4];
@@ -169,15 +169,13 @@ int init_tank_pos() {
                 if(bullet_act(&enemy_bullet[count],&mytank,enemy_Tank)) return FAILURE;                
             }
         }
+        int is_win = 1;
         for (int count = 0; count < enemy_num; count++) {
-            if (enemy_Tank[count].live == 0) {
-                is_win++;
+            if (enemy_Tank[count].live == 1) {
+                is_win=0;
             }
-            if (is_win == 10) {
-                return SUCCESS;
-            }
-            else is_win = 0;
         }
+        if (is_win) return SUCCESS;
 
         
         Sleep(10);

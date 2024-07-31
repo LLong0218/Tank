@@ -1,5 +1,5 @@
 #pragma once
-void bullet_hit_wall(int x, int y, bullet* bullet) {
+int bullet_hit_wall(int x, int y, bullet* bullet) {
     if (map[y][x] == 1) {
         map[y][x] = 0;
         bullet->status = 0;
@@ -9,5 +9,5 @@ void bullet_hit_wall(int x, int y, bullet* bullet) {
     else if (map[y][x] == 2) {
         bullet->status = 0;
     }
-
+    return 0;
 }
